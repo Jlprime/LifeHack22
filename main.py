@@ -58,5 +58,7 @@ async def send_welcome(message):
         await bot.send_message(chat_id=message.chat.id,text="Welcome!")
 
 @bot.callback_query_handler(func=lambda call: True)
+def handle_callback(call):
+    pass
 
 asyncio.run(bot.polling())
