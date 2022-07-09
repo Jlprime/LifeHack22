@@ -1,7 +1,7 @@
 from time import time
 import logging
 import telebot
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+from telebot.types import BotCommand, InlineKeyboardMarkup, InlineKeyboardButton
 from telebot.apihelper import ApiTelegramException
 
 
@@ -20,6 +20,10 @@ logger = logging.getLogger(__name__)
 
 bot = telebot.TeleBot("5309905882:AAGaktQJAxGIoKjA-VQb3baoiMZKgeu1Ywk")
 
+bot.set_my_commands([
+    BotCommand('start','Initialisation'),
+    ])
+
 def is_subscribed(channel_id, user_id):
     try:
         response = bot.get_chat_member(channel_id, user_id)
@@ -29,6 +33,8 @@ def is_subscribed(channel_id, user_id):
         if e.result_json['description'] == 'Bad Request: user not found':
             return False
 
+def send_announcement():
+    bot.send_message(chat_id=CHANNEL_ID,text=f"bot test {time()}")
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
